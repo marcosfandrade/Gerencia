@@ -1,4 +1,4 @@
-namespace WebApi.Helpers;
+namespace Gerencia.API.Helpers;
 
 using System.Net;
 using System.Text.Json;

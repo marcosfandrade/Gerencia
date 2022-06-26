@@ -1,8 +1,8 @@
-namespace WebApi.Authorization;
+namespace Gerencia.API.Authorization;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using WebApi.Entities;
+using Gerencia.API.Entities;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class AuthorizeAttribute : Attribute, IAuthorizationFilter

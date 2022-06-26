@@ -1,6 +1,6 @@
-namespace WebApi.Authorization;
+namespace Gerencia.API.Authorization;
 
-using WebApi.Services;
+using Gerencia.API.Services;
 
 public class JwtMiddleware
 {

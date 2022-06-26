@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace WebApi.Migrations.SqlServerMigrations
+namespace Gerencia.API.Migrations.SqlServerMigrations
 {
     public partial class InitialCreate : Migration
     {

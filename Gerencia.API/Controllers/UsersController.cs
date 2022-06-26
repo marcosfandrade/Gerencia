@@ -1,12 +1,12 @@
-﻿namespace WebApi.Controllers;
+﻿namespace Gerencia.API.Controllers;
 
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using WebApi.Authorization;
-using WebApi.Helpers;
-using WebApi.Models.Users;
-using WebApi.Services;
+using Gerencia.API.Authorization;
+using Gerencia.API.Helpers;
+using Gerencia.API.Models.Users;
+using Gerencia.API.Services;
 
 [Authorize]
 [ApiController]

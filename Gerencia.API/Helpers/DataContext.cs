@@ -1,7 +1,7 @@
-namespace WebApi.Helpers;
+namespace Gerencia.API.Helpers;
 
 using Microsoft.EntityFrameworkCore;
-using WebApi.Entities;
+using Gerencia.API.Entities;
 
 public class DataContext : DbContext
 {

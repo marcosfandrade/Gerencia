@@ -1,4 +1,4 @@
-namespace WebApi.Helpers;
+namespace Gerencia.API.Helpers;
 
 public class AppSettings
 {

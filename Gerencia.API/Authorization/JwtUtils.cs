@@ -1,12 +1,12 @@
-namespace WebApi.Authorization;
+namespace Gerencia.API.Authorization;
 
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using WebApi.Entities;
-using WebApi.Helpers;
+using Gerencia.API.Entities;
+using Gerencia.API.Helpers;
 
 public interface IJwtUtils
 {

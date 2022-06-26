@@ -1,8 +1,8 @@
-namespace WebApi.Helpers;
+namespace Gerencia.API.Helpers;
 
 using AutoMapper;
-using WebApi.Entities;
-using WebApi.Models.Users;
+using Gerencia.API.Entities;
+using Gerencia.API.Models.Users;
 
 public class AutoMapperProfile : Profile
 {

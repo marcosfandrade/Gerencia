@@ -1,4 +1,4 @@
-namespace WebApi.Models.Users;
+namespace Gerencia.API.Models.Users;
 
 public class AuthenticateResponse
 {

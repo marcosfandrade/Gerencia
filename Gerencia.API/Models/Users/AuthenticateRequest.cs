@@ -1,11 +1,11 @@
-namespace WebApi.Models.Users;
+namespace Gerencia.API.Models.Users;
 
 using System.ComponentModel.DataAnnotations;
 
 public class AuthenticateRequest
 {
     [Required]
-    public string Username { get; set; }
+    public string Login { get; set; }
 
     [Required]
     public string Password { get; set; }

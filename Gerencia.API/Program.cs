@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebApi.Authorization;
-using WebApi.Helpers;
-using WebApi.Services;
+using Gerencia.API.Authorization;
+using Gerencia.API.Helpers;
+using Gerencia.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
