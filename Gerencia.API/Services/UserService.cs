@@ -15,6 +15,7 @@ public interface IUserService
  void Register(RegisterRequest model);
  void Update(int id, UpdateRequest model);
  void Delete(int id);
+ List<LoginHistoric> GetUserLoginHistoric(int id);
 }
 
 public class UserService : IUserService
@@ -22,15 +23,21 @@ public class UserService : IUserService
  private DataContext _context;
  private IJwtUtils _jwtUtils;
  private readonly IMapper _mapper;
+ private readonly ILoginHistoricService _loginHistoricService;
+ private readonly ILogger<UserService> _logger;
 
  public UserService(
      DataContext context,
      IJwtUtils jwtUtils,
-     IMapper mapper)
+     IMapper mapper,
+     ILoginHistoricService loginHistoricService,
+     ILogger<UserService> logger)
  {
   _context = context;
   _jwtUtils = jwtUtils;
   _mapper = mapper;
+  _loginHistoricService = loginHistoricService;
+  _logger = logger;
  }
 
  public AuthenticateResponse Authenticate(AuthenticateRequest model)
@@ -42,6 +49,11 @@ public class UserService : IUserService
   // authentication successful
   var response = _mapper.Map<AuthenticateResponse>(user);
   response.Token = _jwtUtils.GenerateToken(user);
+
+  _loginHistoricService.SaveHistorics(user.Id);
+
+  _logger.LogInformation("Autentication userID: " + user.Login);
+
   return response;
  }
 
@@ -71,6 +83,8 @@ public class UserService : IUserService
   // save user
   _context.Users.Add(user);
   _context.SaveChanges();
+
+  _logger.LogInformation("Register userLogin: " + user.Login);
  }
 
  public void Update(int id, UpdateRequest model)
@@ -89,6 +103,8 @@ public class UserService : IUserService
   _mapper.Map(model, user);
   _context.Users.Update(user);
   _context.SaveChanges();
+
+  _logger.LogInformation("Update userLogin: " + user.Login);
  }
 
  public void Delete(int id)
@@ -96,6 +112,8 @@ public class UserService : IUserService
   var user = getUser(id);
   _context.Users.Remove(user);
   _context.SaveChanges();
+
+  _logger.LogInformation("Delete userLogin: " + user.Login);
  }
 
  // helper methods
@@ -105,5 +123,10 @@ public class UserService : IUserService
   var user = _context.Users.Find(id);
   if (user == null) throw new KeyNotFoundException("User not found");
   return user;
+ }
+
+ public List<LoginHistoric> GetUserLoginHistoric(int id) {
+    _logger.LogInformation("Get historic userId: " + id);
+    return _loginHistoricService.GetHistorics(id);
  }
 }

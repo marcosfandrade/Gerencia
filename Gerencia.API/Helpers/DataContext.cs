@@ -1,22 +1,22 @@
 namespace Gerencia.API.Helpers;
 
-using Microsoft.EntityFrameworkCore;
 using Gerencia.API.Entities;
+using Microsoft.EntityFrameworkCore;
 
 public class DataContext : DbContext
 {
-    protected readonly IConfiguration Configuration;
+ private readonly IConfiguration _configuration;
 
-    public DataContext(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
+ public DataContext(IConfiguration configuration){
+    _configuration = configuration;
+ }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        // connect to sql server database
-        options.UseSqlServer(Configuration.GetConnectionString("WebApiDatabase"));
-    }
+ protected override void OnConfiguring(DbContextOptionsBuilder options)
+ {
+  // connect to sqlite database
+  options.UseSqlite(_configuration.GetConnectionString("WebApiDatabase"));
+ }
 
-    public DbSet<User> Users { get; set; }
+ public DbSet<User> Users { get; set; }
+ public DbSet<LoginHistoric> LoginHistorics { get; set; }
 }

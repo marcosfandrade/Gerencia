@@ -3,21 +3,36 @@ using System;
 using Gerencia.API.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Gerencia.API.Migrations.SqliteMigrations
+namespace Gerencia.API.Migrations
 {
-    [DbContext(typeof(SqliteDataContext))]
-    [Migration("20220626233607_ChangeUserInfo")]
-    partial class ChangeUserInfo
+    [DbContext(typeof(DataContext))]
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.1");
+
+            modelBuilder.Entity("Gerencia.API.Entities.LoginHistoric", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LoginTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LoginHistorics");
+                });
 
             modelBuilder.Entity("Gerencia.API.Entities.User", b =>
                 {

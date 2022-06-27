@@ -70,4 +70,10 @@ public class UsersController : ControllerBase
         _userService.Delete(id);
         return Ok(new { message = "User deleted successfully" });
     }
+
+    [HttpGet("loginhistoric/{id}")]
+    public IActionResult GetLoginHistoric(int id)
+    {
+        return Ok(_userService.GetUserLoginHistoric(id));
+    }
 }

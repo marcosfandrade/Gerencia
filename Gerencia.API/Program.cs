@@ -7,28 +7,26 @@ var builder = WebApplication.CreateBuilder(args);
 
 // add services to DI container
 {
-    var services = builder.Services;
-    var env = builder.Environment;
- 
-    // use sql server db in production and sqlite db in development
-    if (env.IsProduction())
-        services.AddDbContext<DataContext>();
-    else
-        services.AddDbContext<DataContext, SqliteDataContext>();
- 
-    services.AddCors();
-    services.AddControllers();
-    services.AddSwaggerGen();
+ var services = builder.Services;
+ var env = builder.Environment;
 
-    // configure automapper with all automapper profiles from this assembly
-    services.AddAutoMapper(typeof(Program));
+ // use sql server db in production and sqlite db in development
+ services.AddDbContext<DataContext>();
 
-    // configure strongly typed settings object
-    services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+ services.AddCors();
+ services.AddControllers();
+ services.AddSwaggerGen();
 
-    // configure DI for application services
-    services.AddScoped<IJwtUtils, JwtUtils>();
-    services.AddScoped<IUserService, UserService>();
+ // configure automapper with all automapper profiles from this assembly
+ services.AddAutoMapper(typeof(Program));
+
+ // configure strongly typed settings object
+ services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
+ // configure DI for application services
+ services.AddScoped<IJwtUtils, JwtUtils>();
+ services.AddScoped<IUserService, UserService>();
+ services.AddScoped<ILoginHistoricService, LoginHistoricService>();
 }
 
 var app = builder.Build();
@@ -36,27 +34,27 @@ var app = builder.Build();
 // migrate any database changes on startup (includes initial db creation)
 using (var scope = app.Services.CreateScope())
 {
-    var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();    
-    dataContext.Database.Migrate();
+ var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+ dataContext.Database.Migrate();
 }
 
 // configure HTTP request pipeline
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    // global cors policy
-    app.UseCors(x => x
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader());
+ app.UseSwagger();
+ app.UseSwaggerUI();
+ // global cors policy
+ app.UseCors(x => x
+     .AllowAnyOrigin()
+     .AllowAnyMethod()
+     .AllowAnyHeader());
 
-    // global error handler
-    app.UseMiddleware<ErrorHandlerMiddleware>();
+ // global error handler
+ app.UseMiddleware<ErrorHandlerMiddleware>();
 
-    // custom jwt auth middleware
-    app.UseMiddleware<JwtMiddleware>();
+ // custom jwt auth middleware
+ app.UseMiddleware<JwtMiddleware>();
 
-    app.MapControllers();
+ app.MapControllers();
 }
 
 app.Run("http://localhost:4000");
